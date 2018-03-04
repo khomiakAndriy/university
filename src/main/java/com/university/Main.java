@@ -14,6 +14,7 @@ import org.hibernate.cfg.Configuration;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class Main {
@@ -28,6 +29,12 @@ public class Main {
 
         BigDecimal avgSalary = lectorDao.getAverageSalaryByDepartmentName("Medical department");
         System.out.println(avgSalary);
+
+        System.out.println(lectorDao.getLectorsCountByDepartmentName("Economical department"));
+
+        List<String> lectors = lectorDao.getLectorsNames("an");
+        String result = lectors.stream().map(String::toString).collect(Collectors.joining(", "));
+        System.out.println(result);
 
 
     }

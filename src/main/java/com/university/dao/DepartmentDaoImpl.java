@@ -42,4 +42,6 @@ public class DepartmentDaoImpl implements DepartmentDao {
         }
         return department;
     }
+
+
 }

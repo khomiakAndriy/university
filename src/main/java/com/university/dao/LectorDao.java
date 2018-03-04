@@ -9,4 +9,8 @@ public interface LectorDao {
     List<Lector> getLectorsByDepartmentName(String departmentName);
 
     BigDecimal getAverageSalaryByDepartmentName(String departmentName);
+
+    Integer getLectorsCountByDepartmentName(String departmentName);
+
+    List<String> getLectorsNames(String keyword);
 }

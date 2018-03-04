@@ -19,7 +19,7 @@ insert into lectors (name, salary, degree_id) values
 ;
 
 insert into departments (name, chief) values 
-('Economшcal department', 'Lesley Laurie'),
+('Economical department', 'Lesley Laurie'),
 ('Law department', 'Dallas Montana'),
 ('Medical department', 'Lesley Laurie');
 

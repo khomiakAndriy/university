@@ -9,12 +9,18 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
+@NamedQueries({
+        @NamedQuery(name = Lector.SEARCH_LECTORS_KEYWORD, query = "select name from Lector l where l.name like :keyword")
+})
+
 @Entity
 @Table(name = "lectors")
 public class Lector {
 
     public Lector() {
     }
+
+    public final static String SEARCH_LECTORS_KEYWORD = "Lector.findByKeyword";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

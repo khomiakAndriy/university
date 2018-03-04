@@ -42,4 +42,24 @@ public class LectorDaoImpl implements LectorDao {
         BigDecimal result = sum.divide(new BigDecimal(lectors.size()), 2, RoundingMode.HALF_EVEN);
         return result;
     }
+
+    @Override
+    public Integer getLectorsCountByDepartmentName(String departmentName) {
+        return getLectorsByDepartmentName(departmentName).size();
+    }
+
+    @Override
+    public List<String> getLectorsNames(String keyword) {
+        List<String> lectorNames = null;
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            lectorNames = session.createNamedQuery(Lector.SEARCH_LECTORS_KEYWORD, String.class).setParameter("keyword", "%"+keyword+"%").getResultList();
+
+        } finally {
+            if (transaction != null) transaction.commit();
+        }
+        return lectorNames;
+    }
 }
