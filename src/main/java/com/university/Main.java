@@ -1,41 +1,74 @@
 package com.university;
 
-import com.university.dao.DepartmentDao;
-import com.university.dao.DepartmentDaoImpl;
-import com.university.dao.LectorDao;
-import com.university.dao.LectorDaoImpl;
-import com.university.entity.Department;
-import com.university.entity.Lector;
-import com.university.util.DataBaseUtil;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import com.university.dao.CommandUtil;
+import com.university.dao.CommandUtilImpl;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Main {
+    private static CommandUtil lectorDao = CommandUtilImpl.getLectorDaoImpl();
+
     public static void main(String[] args) {
-        DepartmentDao departmentDao = new DepartmentDaoImpl();
-        LectorDao lectorDao = new LectorDaoImpl();
+        showBeginScreen();
+        int a = 0;
+        a = getUserInput();
 
+        while (a != 6) {
+            switch (a) {
+                case 1:
+                    System.out.println("Please enter department name:");
+                    lectorDao.showDepartmentChief(new Scanner(System.in).nextLine());
+                    showBeginScreen();
+                    break;
+                case 2:
+                    System.out.println("Please enter department name:");
+                    lectorDao.showDepartmentStatisticByDepName(new Scanner(System.in).nextLine());
+                    showBeginScreen();
+                    break;
+                case 3:
+                    System.out.println("Please enter department name:");
+                    lectorDao.showAverageSalaryByDepartmentName(new Scanner(System.in).nextLine());
+                    showBeginScreen();
+                    break;
+                case 4:
+                    System.out.println("Please enter department name:");
+                    lectorDao.showLectorsCountByDepartmentName(new Scanner(System.in).nextLine());
+                    showBeginScreen();
+                    break;
+                case 5:
+                    System.out.println("Please enter search keyword:");
+                    lectorDao.searchByKeyword(new Scanner(System.in).nextLine());
+                    showBeginScreen();
+                    break;
+                default:
+                    System.out.println("Please make correct choice:");
+                    break;
+            }
+            a = getUserInput();
+        }
+    }
 
-        Department department = departmentDao.getDepartmentByName("Law department");
-        System.out.println(department.getChief());
+    private static int getUserInput() {
+        int a =0;
+        try{
+             a = new Scanner(System.in).nextInt();
+        } catch (InputMismatchException ignore){
+            System.out.println("You must enter a number");
+        }
+        return a;
+    }
 
-
-        BigDecimal avgSalary = lectorDao.getAverageSalaryByDepartmentName("Medical department");
-        System.out.println(avgSalary);
-
-        System.out.println(lectorDao.getLectorsCountByDepartmentName("Economical department"));
-
-        List<String> lectors = lectorDao.getLectorsNames("an");
-        String result = lectors.stream().map(String::toString).collect(Collectors.joining(", "));
-        System.out.println(result);
-
-
+    private static void showBeginScreen() {
+        System.out.println();
+        System.out.println("Hello! Its university console app. Please choose a command:");
+        System.out.println("Current departments name: Economical department, Law department, Medical department");
+        System.out.println("1. Who is head of department");
+        System.out.println("2. Show department statistic");
+        System.out.println("3. Show the average salary for department");
+        System.out.println("4. Show count of employee for department");
+        System.out.println("5. Global search by keyword");
+        System.out.println("6. End");
+        System.out.println();
     }
 }
