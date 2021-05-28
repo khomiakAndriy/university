@@ -17,7 +17,7 @@ public class Main {
         while (a != 6) {
             switch (a) {
                 case 1:
-                    System.out.println("Please enter department name:");
+
                     lectorDao.showDepartmentChief(new Scanner(System.in).nextLine());
                     showBeginScreen();
                     break;
